@@ -54,7 +54,7 @@ namespace PackageVersions;
     /**
      * @throws \OutOfBoundsException if a version cannot be located
      */
-    public static function getComposerVersion(string $packageName) : string
+    public static function getComposerVersion($packageName)
     {
         list($version) = explode('@', self::getVersion($packageName));
         return $version;
