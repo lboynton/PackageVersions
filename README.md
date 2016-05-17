@@ -5,9 +5,11 @@ _This is a PHP 5.6 compatible fork of ocramius/package-versions._
 This utility provides very quick and easy access to installed composer dependency versions.
 
 ```php
-$version = \PackageVersions\Versions::getVersion('ocramius/package-versions');
+$version     = \PackageVersions\Versions::getVersion('ocramius/package-versions');
+$versionOnly = \PackageVersions\Versions::getComposerVersion('ocramius/package-versions');
 
-var_dump($version); // 1.0.0@0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33
+var_dump($version);     // 1.0.0@0beec7b5ea3f0fdbc95d0dd47f3c5bc275da8a33
+var_dump($versionOnly); // 1.0.0
 ```
 
 [![Build Status](https://travis-ci.org/lboynton/PackageVersions.svg?branch=master)](https://travis-ci.org/Ocramius/PackageVersions)
