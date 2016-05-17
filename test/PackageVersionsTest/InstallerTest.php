@@ -176,9 +176,11 @@ final class Versions
     /**
      * @throws \OutOfBoundsException if a version cannot be located
      */
-    public static function getVersion(string $packageName) : string
+    public static function getVersion($packageName)
     {
-        if (! isset(self::VERSIONS[$packageName])) {
+        $version = self::VERSIONS;
+
+        if (! isset($version[$packageName])) {
             throw new \OutOfBoundsException(
                 'Required package "' . $packageName . '" is not installed: cannot detect its version'
             );
@@ -278,9 +280,11 @@ final class Versions
     /**
      * @throws \OutOfBoundsException if a version cannot be located
      */
-    public static function getVersion(string $packageName) : string
+    public static function getVersion($packageName)
     {
-        if (! isset(self::VERSIONS[$packageName])) {
+        $version = self::VERSIONS;
+
+        if (! isset($version[$packageName])) {
             throw new \OutOfBoundsException(
                 'Required package "' . $packageName . '" is not installed: cannot detect its version'
             );
@@ -382,9 +386,11 @@ final class Versions
     /**
      * @throws \OutOfBoundsException if a version cannot be located
      */
-    public static function getVersion(string $packageName) : string
+    public static function getVersion($packageName)
     {
-        if (! isset(self::VERSIONS[$packageName])) {
+        $version = self::VERSIONS;
+
+        if (! isset($version[$packageName])) {
             throw new \OutOfBoundsException(
                 'Required package "' . $packageName . '" is not installed: cannot detect its version'
             );

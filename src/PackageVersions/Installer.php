@@ -40,7 +40,7 @@ namespace PackageVersions;
      */
     public static function getVersion($packageName)
     {
-        $version = self::VERSIONS[$packageName];
+        $version = self::VERSIONS;
 
         if (! isset($version[$packageName])) {
             throw new \OutOfBoundsException(
@@ -174,7 +174,7 @@ PHP;
             yield $package['name'] => $package['version'] . '@' . (
                 isset($package['source']['reference'])
                     ? $package['source']['reference']
-                    : isset($package['dist']['reference']) ? $package['dist']['reference'] : ''
+                    : (isset($package['dist']['reference']) ? $package['dist']['reference'] : '')
             );
         }
 
