@@ -38,9 +38,11 @@ namespace PackageVersions;
     /**
      * @throws \OutOfBoundsException if a version cannot be located
      */
-    public static function getVersion(string $packageName) : string
+    public static function getVersion($packageName)
     {
-        if (! isset(self::VERSIONS[$packageName])) {
+        $version = self::VERSIONS[$packageName];
+
+        if (! isset($version[$packageName])) {
             throw new \OutOfBoundsException(
                 'Required package "' . $packageName . '" is not installed: cannot detect its version'
             );
@@ -95,7 +97,7 @@ PHP;
         $io->write('<info>ocramius/package-versions:</info> ...done generating version class');
     }
 
-    private static function generateVersionsClass(Composer $composer) : string
+    private static function generateVersionsClass(Composer $composer)
     {
         return sprintf(
             self::$generatedClassTemplate,
@@ -114,7 +116,7 @@ PHP;
      * @throws \RuntimeException
      */
     private static function writeVersionClassToFile(
-        string $versionClassSource,
+        $versionClassSource,
         Config $composerConfig,
         RootPackageInterface $rootPackage
     ) {
@@ -137,7 +139,7 @@ PHP;
     private static function locateRootPackageInstallPath(
         Config $composerConfig,
         RootPackageInterface $rootPackage
-    ) : string {
+    ) {
         if ('ocramius/package-versions' === self::getRootPackageAlias($rootPackage)->getName()) {
             return dirname($composerConfig->get('vendor-dir'));
         }
@@ -145,7 +147,7 @@ PHP;
         return $composerConfig->get('vendor-dir') . '/ocramius/package-versions';
     }
 
-    private static function getRootPackageAlias(RootPackageInterface $rootPackage) : PackageInterface
+    private static function getRootPackageAlias(RootPackageInterface $rootPackage)
     {
         $package = $rootPackage;
 
@@ -162,15 +164,17 @@ PHP;
      *
      * @return \Generator|\string[]
      */
-    private static function getVersions(Locker $locker, RootPackageInterface $rootPackage) : \Generator
+    private static function getVersions(Locker $locker, RootPackageInterface $rootPackage)
     {
         $lockData = $locker->getLockData();
 
-        $lockData['packages-dev'] = $lockData['packages-dev'] ?? [];
+        $lockData['packages-dev'] = isset($lockData['packages-dev']) ? $lockData['packages-dev'] : [];
 
-        foreach (array_merge($lockData['packages'], $lockData['packages-dev'])  as $package) {
+        foreach (array_merge($lockData['packages'], $lockData['packages-dev']) as $package) {
             yield $package['name'] => $package['version'] . '@' . (
-                $package['source']['reference']?? $package['dist']['reference'] ?? ''
+                isset($package['source']['reference'])
+                    ? $package['source']['reference']
+                    : isset($package['dist']['reference']) ? $package['dist']['reference'] : ''
             );
         }
 

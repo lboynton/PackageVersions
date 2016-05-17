@@ -409,7 +409,7 @@ PHP;
      *
      * @throws \RuntimeException
      */
-    public function testDumpsVersionsClassToSpecificLocation(RootPackageInterface $rootPackage, bool $inVendor)
+    public function testDumpsVersionsClassToSpecificLocation(RootPackageInterface $rootPackage, $inVendor)
     {
         $config            = $this->getMockBuilder(Config::class)->disableOriginalConstructor()->getMock();
         $locker            = $this->getMockBuilder(Locker::class)->disableOriginalConstructor()->getMock();
@@ -463,7 +463,7 @@ PHP;
      * @return bool[][]|RootPackageInterface[][] the root package and whether the versions class is to be generated in
      *                                           the vendor dir or not
      */
-    public function rootPackageProvider() : array
+    public function rootPackageProvider()
     {
         $baseRootPackage                         = new RootPackage('root/package', '1.2.3', '1.2.3');
         $aliasRootPackage                        = new RootAliasPackage($baseRootPackage, '1.2.3', '1.2.3');
@@ -509,7 +509,7 @@ PHP;
      *
      * @return void
      */
-    private function rmDir(string $directory)
+    private function rmDir($directory)
     {
         if (! is_dir($directory)) {
             unlink($directory);
@@ -523,7 +523,7 @@ PHP;
             },
             array_filter(
                 scandir($directory),
-                function (string $dirItem) {
+                function ($dirItem) {
                     return ! in_array($dirItem, ['.', '..'], true);
                 }
             )

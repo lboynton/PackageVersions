@@ -1,5 +1,7 @@
 # Package Versions
 
+_This is a PHP 5.6 compatible fork of ocramius/package-versions._
+
 This utility provides very quick and easy access to installed composer dependency versions.
 
 ```php
